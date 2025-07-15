@@ -1,0 +1,25 @@
+{
+  "name": "waldo-backend",
+  "version": "1.0.0",
+  "description": "waldo project backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IcelandSpar/waldo-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IcelandSpar/waldo-backend/issues"
+  },
+  "homepage": "https://github.com/IcelandSpar/waldo-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0"
+  }
+}
