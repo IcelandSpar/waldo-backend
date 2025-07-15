@@ -1,6 +1,8 @@
+const { test } = require('../db/queries.js');
 
-const gameController = (req, res) => {
-  res.end('the game controller');
+const gameController = async (req, res) => {
+  const results = await test();
+  res.json(results);
 };
 
 
