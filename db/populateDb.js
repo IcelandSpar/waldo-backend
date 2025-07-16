@@ -5,16 +5,10 @@ const { Client } = require('pg');
 
 
 const SQL = `
-DROP TABLE IF EXISTS leaderboard;
 DROP TABLE IF EXISTS images CASCADE;
+DROP TABLE IF EXISTS leaderboard;
 DROP TABLE IF EXISTS waldo_item;
 
-CREATE TABLE IF NOT EXISTS leaderboard (
-player_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-name VARCHAR(12),
-start_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-end_time TIMESTAMP
-);
 
 CREATE TABLE IF NOT EXISTS images (
 image_id uuid DEFAULT gen_random_uuid(),
@@ -22,6 +16,18 @@ image_name VARCHAR(255),
 image_path VARCHAR(255),
 difficulty VARCHAR(255),
 PRIMARY KEY(image_id)
+);
+
+CREATE TABLE IF NOT EXISTS leaderboard (
+player_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+name VARCHAR(12),
+start_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+end_time TIMESTAMP,
+image_id uuid,
+CONSTRAINT fk_image
+  FOREIGN KEY(image_id)
+    REFERENCES images(image_id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS waldo_item (
@@ -32,6 +38,7 @@ image_id uuid,
 CONSTRAINT fk_image
   FOREIGN KEY(image_id)
     REFERENCES images(image_id)
+    ON DELETE CASCADE
 );
 
 INSERT INTO leaderboard (name)
