@@ -7,6 +7,10 @@ const gameRouter = require('./routes/gameRouter.js');
 
 app.use(cors());
 
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+
+
 app.use('/game', gameRouter);
 
 const PORT = process.env.PORT;
