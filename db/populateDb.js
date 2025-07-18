@@ -13,8 +13,6 @@ DROP TABLE IF EXISTS waldo_item;
 CREATE TABLE IF NOT EXISTS images (
 image_id uuid DEFAULT gen_random_uuid(),
 image_name VARCHAR(255),
-image_width integer,
-image_height integer,
 image_path VARCHAR(255),
 difficulty VARCHAR(255),
 PRIMARY KEY(image_id)
@@ -38,6 +36,8 @@ top_left_x_coord integer,
 top_left_y_coord integer,
 bottom_right_x_coord integer,
 bottom_right_y_coord integer,
+recorded_image_width integer,
+recorded_image_height integer,
 item_name VARCHAR(255),
 image_id uuid,
 CONSTRAINT fk_image
@@ -52,10 +52,32 @@ VALUES
   ('Player 2'),
   ('Player 3');
 
-INSERT INTO images (image_name, image_width, image_height, image_path, difficulty)
+INSERT INTO images (image_name, image_path, difficulty)
 VALUES
-  ('Toys in the Attic', 694, 931, '../images/i_spy_10.jpg', 'easy');
+  ('Toys in the Attic', '../images/i_spy_10.jpg', 'easy');
 `;
+
+// INSERT INTO waldo_item (
+// top_left_x_coord, 
+// top_left_y_coord, 
+// bottom_right_x_coord, 
+// bottom_right_y_coord,
+// recorded_image_width,
+// recorded_image_height,
+// item_name,
+// image_id
+// )
+// VALUES
+//   (
+//   305,
+//   590,
+//   384,
+//   693,
+//   811,
+//   1088,
+//   'shell',
+//   '3871ebab-e930-44b2-9536-13a6e51683fa'
+// );
 
 async function main() {
   console.log('seeding...');

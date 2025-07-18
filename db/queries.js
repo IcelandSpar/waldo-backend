@@ -7,8 +7,8 @@ async function test() {
 
 
 
-async function getItemCoords() {
-  const { rows } = await pool.query('SELECT * FROM waldo_item WHERE name="shell"')
+async function getItemCoords(itemName) {
+  const { rows } = await pool.query('SELECT * FROM waldo_item WHERE item_name=$1', [itemName])
   return rows;
 }
 
