@@ -8,6 +8,7 @@ const SQL = `
 DROP TABLE IF EXISTS images CASCADE;
 DROP TABLE IF EXISTS leaderboard;
 DROP TABLE IF EXISTS waldo_item;
+DROP TABLE IF EXISTS player_items;
 
 
 CREATE TABLE IF NOT EXISTS images (
@@ -44,6 +45,26 @@ CONSTRAINT fk_image
   FOREIGN KEY(image_id)
     REFERENCES images(image_id)
     ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS player_items (
+item_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+is_found boolean DEFAULT false,
+player_id uuid,
+waldo_item_id uuid,
+image_id uuid,
+CONSTRAINT fk_player
+  FOREIGN KEY(player_id)
+  REFERENCES leaderboard(player_id)
+  ON DELETE CASCADE,
+CONSTRAINT fk_waldo_item
+  FOREIGN KEY(waldo_item_id)
+  REFERENCES waldo_item(waldo_item_id)
+  ON DELETE CASCADE,
+CONSTRAINT fk_image
+  FOREIGN KEY(image_id)
+  REFERENCES images(image_id)
+  ON DELETE CASCADE
 );
 
 INSERT INTO leaderboard (name)

@@ -1,8 +1,13 @@
-const { test, getItemCoords } = require('../db/queries.js');
+const { test, getItemCoords, getWaldoItemsList } = require('../db/queries.js');
 
 const gameController = async (req, res) => {
   const results = await test();
   res.json(results);
+};
+
+const getWaldoItems = async (req, res) => {
+  const waldoItems = await getWaldoItemsList('c47243b9-4e73-47ac-97ab-8f5c66235609');
+  res.json(waldoItems)
 };
 
 
@@ -26,6 +31,7 @@ const checkIfCorrectCoord = async (req, res) => {
   ) {
     res.json({
       coordResult: true,
+      waldoItemId: waldoItem.waldo_item_id
     })
   } else {
     res.json({
@@ -37,10 +43,11 @@ const checkIfCorrectCoord = async (req, res) => {
   }
   res.end();
 
-}
+};
 
 
 module.exports = {
   gameController,
+  getWaldoItems,
   checkIfCorrectCoord,
 }

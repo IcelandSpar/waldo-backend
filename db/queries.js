@@ -5,6 +5,11 @@ async function test() {
   return rows;
 };
 
+async function getWaldoItemsList(imageId) {
+  const { rows } = await pool.query("SELECT * FROM waldo_item WHERE image_id=$1", [imageId]);
+  return rows;
+};
+
 
 
 async function getItemCoords(itemName) {
@@ -14,5 +19,6 @@ async function getItemCoords(itemName) {
 
 module.exports = {
   test,
+  getWaldoItemsList,
   getItemCoords,
 };
