@@ -1,4 +1,4 @@
-const { getImages, createPlayerInLeaderboard,getItemCoords, getWaldoItemsList } = require('../db/queries.js');
+const { getImages, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems } = require('../db/queries.js');
 
 const getImagesList = async (req, res) => {
   const images = await getImages();
@@ -11,10 +11,15 @@ const createPlayer = async (req, res) => {
 }
 
 const getWaldoItems = async (req, res) => {
-  const waldoItems = await getWaldoItemsList('2bb3d3c9-3e2a-4cb1-a135-c4bb6009c84a');
-  console.log(waldoItems)
+  const waldoItems = await getWaldoItemsList(req.params.imageId);
   res.json(waldoItems)
 };
+
+const getAndCreatePlayerItems = async (req, res) => {
+  const playerItems = await createPlayerItems(req.params.imageId, req.params.playerId);
+  console.log(playerItems)
+  res.json(playerItems);
+}
 
 
 const noarmalizeCoordsToWindowSize = (frontEndClickPosition, storedCoords) => {
@@ -55,6 +60,7 @@ const checkIfCorrectCoord = async (req, res) => {
 module.exports = {
   getImagesList,
   createPlayer,
+  getAndCreatePlayerItems,
   getWaldoItems,
   checkIfCorrectCoord,
 }
