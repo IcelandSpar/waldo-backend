@@ -1,4 +1,4 @@
-const { getImages, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems } = require('../db/queries.js');
+const { getImages, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems } = require('../db/queries.js');
 
 const getImagesList = async (req, res) => {
   const images = await getImages();
@@ -13,6 +13,11 @@ const createPlayer = async (req, res) => {
 const getWaldoItems = async (req, res) => {
   const waldoItems = await getWaldoItemsList(req.params.imageId);
   res.json(waldoItems)
+};
+
+const getPlayerItems = async (req, res) => {
+  const playerItems = await findPlayerItems(req.params.imageId, req.params.playerId);
+  res.json(playerItems);
 };
 
 const getAndCreatePlayerItems = async (req, res) => {
@@ -60,6 +65,7 @@ const checkIfCorrectCoord = async (req, res) => {
 module.exports = {
   getImagesList,
   createPlayer,
+  getPlayerItems,
   getAndCreatePlayerItems,
   getWaldoItems,
   checkIfCorrectCoord,

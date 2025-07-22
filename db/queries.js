@@ -15,6 +15,12 @@ async function createPlayerInLeaderboard(imageId) {
   return rows;
 }
 
+
+async function findPlayerItems(imageId, playerId) {
+  const { rows } = await pool.query("SELECT * FROM player_items JOIN waldo_item ON player_items.waldo_item_id = waldo_item.waldo_item_id WHERE player_items.image_id=$1 AND player_id=$2", [imageId, playerId])
+  return rows;
+}
+
 async function createPlayerItems(imageId, playerId) {
   const result = await pool.query("SELECT * FROM waldo_item WHERE image_id=$1", [imageId]);
   const currentPlayerItems = await pool.query("SELECT * FROM player_items WHERE image_id=$1 AND player_id=$2", [imageId, playerId]);
@@ -28,9 +34,6 @@ async function createPlayerItems(imageId, playerId) {
   return rows;
 };
 
-// async function getPlayerItems() {
-//   const { rows } = await pool.query("SELECT * FROM player_items")
-// }
 
 
 
@@ -41,6 +44,7 @@ async function getItemCoords(itemName) {
 
 module.exports = {
   getImages,
+  findPlayerItems,
   createPlayerInLeaderboard,
   createPlayerItems,
   getWaldoItemsList,
