@@ -34,7 +34,9 @@ async function createPlayerItems(imageId, playerId) {
   return rows;
 };
 
-
+async function updatePlayerFoundItem(imageId, playerId, itemId) {
+  await pool.query("UPDATE player_items SET is_found=true WHERE image_id=$1 AND player_id=$2 AND waldo_item_id=$3",[imageId, playerId, itemId]);
+}
 
 
 async function getItemCoords(itemName) {
@@ -47,6 +49,7 @@ module.exports = {
   findPlayerItems,
   createPlayerInLeaderboard,
   createPlayerItems,
+  updatePlayerFoundItem,
   getWaldoItemsList,
   getItemCoords,
 };

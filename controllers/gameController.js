@@ -1,4 +1,4 @@
-const { getImages, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems } = require('../db/queries.js');
+const { getImages, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems, updatePlayerFoundItem } = require('../db/queries.js');
 
 const getImagesList = async (req, res) => {
   const images = await getImages();
@@ -45,6 +45,8 @@ const checkIfCorrectCoord = async (req, res) => {
     normalizedPositions.xCoord >= waldoItem.top_left_x_coord &&
     normalizedPositions.yCoord >= waldoItem.top_left_y_coord
   ) {
+    console.log(req.body)
+    updatePlayerFoundItem(req.body.imageId, req.body.playerId, waldoItem.waldo_item_id)
     res.json({
       coordResult: true,
       waldoItemId: waldoItem.waldo_item_id
