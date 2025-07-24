@@ -44,6 +44,11 @@ async function getItemCoords(itemName) {
   return rows;
 }
 
+async function returnPlayerItemsNotFound(imageId, playerId) {
+  const { rows } = await pool.query("SELECT * FROM player_items WHERE is_found=false AND image_id=$1 AND player_id=$2", [imageId, playerId]);
+  return rows;
+}
+
 module.exports = {
   getImages,
   findPlayerItems,
@@ -52,4 +57,5 @@ module.exports = {
   updatePlayerFoundItem,
   getWaldoItemsList,
   getItemCoords,
+  returnPlayerItemsNotFound,
 };

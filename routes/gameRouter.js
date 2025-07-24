@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const gameRouter = Router();
 
-const { getImagesList, createPlayer, checkIfCorrectCoord, getWaldoItems, getAndCreatePlayerItems, getPlayerItems } = require('../controllers/gameController.js');
+const { getImagesList, createPlayer, checkIfCorrectCoord, getWaldoItems, getAndCreatePlayerItems, getPlayerItems, checkIfAllItemsFound } = require('../controllers/gameController.js');
 
 gameRouter.get('/images', getImagesList);
 
@@ -15,5 +15,7 @@ gameRouter.post('/create-player-items/:imageId/:playerId', getAndCreatePlayerIte
 
 
 gameRouter.post('/check-if-correct-coord', checkIfCorrectCoord);
+
+gameRouter.get('/check-if-all-items-found/:imageId/:playerId', checkIfAllItemsFound);
 
 module.exports = gameRouter;
