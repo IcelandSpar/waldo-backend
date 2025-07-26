@@ -49,6 +49,11 @@ async function returnPlayerItemsNotFound(imageId, playerId) {
   return rows;
 }
 
+async function endGameAndReturnResults(imageId, playerId) {
+  const { rows } = await pool.query("UPDATE leaderboard SET end_time=current_timestamp WHERE image_id=$1 AND player_id=$2 RETURNING *", [imageId, playerId]);
+  return rows;
+}
+
 module.exports = {
   getImages,
   findPlayerItems,
@@ -58,4 +63,5 @@ module.exports = {
   getWaldoItemsList,
   getItemCoords,
   returnPlayerItemsNotFound,
+  endGameAndReturnResults,
 };

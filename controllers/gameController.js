@@ -1,4 +1,4 @@
-const { getImages, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems, updatePlayerFoundItem, returnPlayerItemsNotFound } = require('../db/queries.js');
+const { getImages, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems, updatePlayerFoundItem, returnPlayerItemsNotFound, endGameAndReturnResults } = require('../db/queries.js');
 
 const getImagesList = async (req, res) => {
   const images = await getImages();
@@ -64,8 +64,15 @@ const checkIfCorrectCoord = async (req, res) => {
 };
 
 const checkIfAllItemsFound = async (req, res) => {
+  let endGameResults = [];
   const playerItemsNotFound = await returnPlayerItemsNotFound(req.params.imageId, req.params.playerId);
+  // end game
+  if(playerItemsNotFound.length == 0) {
+    endGameResults = await endGameAndReturnResults(req.params.imageId, req.params.playerId);
+  }
+  await 
   res.json({
+    endGameResults,
     allItemsFound: playerItemsNotFound.length == 0,
   }) ;
 }
