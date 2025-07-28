@@ -5,6 +5,11 @@ async function getImages() {
   return rows;
 }
 
+async function getAllImagesLeaderboard(limit = 10) {
+const { rows } = await pool.query("SELECT *, EXTRACT(EPOCH FROM (end_time - start_time)) AS difference FROM leaderboard JOIN images ON images.image_id=leaderboard.image_id WHERE end_time IS NOT null ORDER BY difference DESC LIMIT $1", [limit]);
+return rows;
+};
+
 async function getWaldoItemsList(imageId) {
   const { rows } = await pool.query("SELECT * FROM waldo_item WHERE image_id=$1", [imageId]);
   return rows;
@@ -56,6 +61,7 @@ async function endGameAndReturnResults(imageId, playerId) {
 
 module.exports = {
   getImages,
+  getAllImagesLeaderboard,
   findPlayerItems,
   createPlayerInLeaderboard,
   createPlayerItems,

@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS leaderboard (
 player_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
 name VARCHAR(12),
 start_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-end_time TIMESTAMP,
+end_time TIMESTAMP WITH TIME ZONE,
 image_id uuid,
 CONSTRAINT fk_image
   FOREIGN KEY(image_id)

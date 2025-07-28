@@ -1,9 +1,12 @@
 const { Router } = require('express');
 const gameRouter = Router();
 
-const { getImagesList, createPlayer, checkIfCorrectCoord, getWaldoItems, getAndCreatePlayerItems, getPlayerItems, checkIfAllItemsFound } = require('../controllers/gameController.js');
+const { getImagesList, getLeaderboard, createPlayer, checkIfCorrectCoord, getWaldoItems, getAndCreatePlayerItems, getPlayerItems, checkIfAllItemsFound } = require('../controllers/gameController.js');
+
 
 gameRouter.get('/images', getImagesList);
+
+gameRouter.get('/get-leaderboard', getLeaderboard);
 
 gameRouter.get('/get-waldo-items/:imageId', getWaldoItems);
 
