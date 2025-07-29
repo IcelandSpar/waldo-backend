@@ -6,7 +6,7 @@ async function getImages() {
 }
 
 async function getAllImagesLeaderboard(limit = 10) {
-const { rows } = await pool.query("SELECT *, EXTRACT(EPOCH FROM (end_time - start_time)) AS difference FROM leaderboard JOIN images ON images.image_id=leaderboard.image_id WHERE end_time IS NOT null ORDER BY difference DESC LIMIT $1", [limit]);
+const { rows } = await pool.query("SELECT *, EXTRACT(EPOCH FROM (end_time - start_time)) AS difference FROM leaderboard JOIN images ON images.image_id=leaderboard.image_id WHERE end_time IS NOT null ORDER BY difference ASC LIMIT $1", [limit]);
 return rows;
 };
 
@@ -59,6 +59,11 @@ async function endGameAndReturnResults(imageId, playerId) {
   return rows;
 }
 
+async function updatePlayerName(playerId, playerName) {
+  const { rows } = await pool.query("UPDATE leaderboard SET name=$2 WHERE player_id=$1 RETURNING *", [playerId, playerName]);
+  return rows;
+}
+
 module.exports = {
   getImages,
   getAllImagesLeaderboard,
@@ -70,4 +75,5 @@ module.exports = {
   getItemCoords,
   returnPlayerItemsNotFound,
   endGameAndReturnResults,
+  updatePlayerName,
 };
