@@ -1,12 +1,14 @@
 const { Router } = require('express');
 const gameRouter = Router();
 
-const { getImagesList, getLeaderboard, createPlayer, checkIfCorrectCoord, getWaldoItems, getAndCreatePlayerItems, getPlayerItems, checkIfAllItemsFound, submitPlayerName } = require('../controllers/gameController.js');
+const { getImagesList, getLeaderboard, getGameLeaderboard, createPlayer, checkIfCorrectCoord, getWaldoItems, getAndCreatePlayerItems, getPlayerItems, checkIfAllItemsFound, submitPlayerName } = require('../controllers/gameController.js');
 
 
 gameRouter.get('/images', getImagesList);
 
 gameRouter.get('/get-leaderboard', getLeaderboard);
+
+gameRouter.get('/get-game-leaderboard/:imageId', getGameLeaderboard);
 
 gameRouter.get('/get-waldo-items/:imageId', getWaldoItems);
 
