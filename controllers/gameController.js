@@ -105,6 +105,33 @@ const submitPlayerName = [validatePlayerName, async (req, res) => {
 
 }];
 
+const checkIfPlayerMadeTopTen = async (req, res) => {
+  const topTen = await returnGameLeaderboard(10, req.params.imageId);
+  let rank = null;
+
+  const isPlayer = (player, indx) => {
+    if(player.player_id == req.params.playerId) {
+      rank = indx + 1;
+    }
+    return player.player_id == req.params.playerId;
+  };
+
+  const result = topTen.find(isPlayer);
+
+  if(result) {
+  res.json({
+    madeTopTen: true,
+    rank,
+  });
+
+  } else {
+    res.json({
+      madeTopTen: false,
+    })
+  }
+
+}
+
 
 module.exports = {
   getImagesList,
@@ -117,4 +144,5 @@ module.exports = {
   checkIfCorrectCoord,
   checkIfAllItemsFound,
   submitPlayerName,
+  checkIfPlayerMadeTopTen,
 }
