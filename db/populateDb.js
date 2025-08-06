@@ -6,8 +6,8 @@ const { Client } = require('pg');
 
 const SQL = `
 DROP TABLE IF EXISTS images CASCADE;
-DROP TABLE IF EXISTS leaderboard;
-DROP TABLE IF EXISTS waldo_item;
+DROP TABLE IF EXISTS leaderboard CASCADE;
+DROP TABLE IF EXISTS waldo_item CASCADE;
 DROP TABLE IF EXISTS player_items;
 
 
@@ -67,11 +67,7 @@ CONSTRAINT fk_image
   ON DELETE CASCADE
 );
 
-INSERT INTO leaderboard (name)
-VALUES
-  ('Player 1'),
-  ('Player 2'),
-  ('Player 3');
+
 
 INSERT INTO images (image_name, image_path, difficulty)
 VALUES
