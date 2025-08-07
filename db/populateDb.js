@@ -72,6 +72,105 @@ CONSTRAINT fk_image
 INSERT INTO images (image_name, image_path, difficulty)
 VALUES
   ('Toys in the Attic', '../images/i_spy_10.jpg', 'easy');
+
+
+INSERT INTO waldo_item (
+top_left_x_coord, 
+top_left_y_coord, 
+bottom_right_x_coord, 
+bottom_right_y_coord,
+recorded_image_width,
+recorded_image_height,
+item_name,
+image_id
+)
+VALUES (
+336,
+652,
+421,
+747,
+878,
+1067,
+'shell',
+(SELECT image_id FROM images WHERE image_name='Toys in the Attic')
+),
+(
+296,
+412,
+407,
+488,
+878,
+1067,
+'horse that rocks',
+(SELECT image_id FROM images WHERE image_name='Toys in the Attic')
+),
+(
+510,
+239,
+737,
+414,
+878,
+1067,
+'horse with wheels',
+(SELECT image_id FROM images WHERE image_name='Toys in the Attic')
+),
+(
+355,
+357,
+389,
+396,
+709,
+862,
+'yellow dice',
+(SELECT image_id FROM images WHERE image_name='Toys in the Attic')
+),
+(
+659,
+109,
+697,
+146,
+709,
+862,
+'green dice',
+(SELECT image_id FROM images WHERE image_name='Toys in the Attic')
+);
+
+
+INSERT INTO images (
+image_name,
+image_path,
+difficulty
+)
+VALUES (
+'Treehouse of Horror',
+'../images/simpsons.jpeg',
+'medium'
+);
+
+
+INSERT INTO waldo_item (
+top_left_x_coord, 
+top_left_y_coord, 
+bottom_right_x_coord, 
+bottom_right_y_coord,
+recorded_image_width,
+recorded_image_height,
+item_name,
+image_id
+)
+VALUES (
+590,
+634,
+623,
+682,
+967,
+739,
+'El Barto',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+);
+
+
+
 `;
 
 // INSERT INTO waldo_item (

@@ -1,11 +1,16 @@
 const { validationResult } = require('express-validator')
 
-const { getImages, getAllImagesLeaderboard, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems, updatePlayerFoundItem, returnPlayerItemsNotFound, endGameAndReturnResults, updatePlayerName, returnGameLeaderboard } = require('../db/queries.js');
+const { getImages, returnImagePath, getAllImagesLeaderboard, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems, updatePlayerFoundItem, returnPlayerItemsNotFound, endGameAndReturnResults, updatePlayerName, returnGameLeaderboard } = require('../db/queries.js');
 const { validatePlayerName } = require('../validators/gameEndValidator.js');
 
 const getImagesList = async (req, res) => {
   const images = await getImages();
   res.json(images);
+}
+
+const getImagePath = async (req, res) => {
+  const imagePath = await returnImagePath(req.params.imageId);
+  res.json(imagePath);
 }
 
 const getLeaderboard = async (req, res) => {
@@ -135,6 +140,7 @@ const checkIfPlayerMadeTopTen = async (req, res) => {
 
 module.exports = {
   getImagesList,
+  getImagePath,
   getLeaderboard,
   getGameLeaderboard,
   createPlayer,
