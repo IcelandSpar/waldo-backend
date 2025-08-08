@@ -144,7 +144,7 @@ difficulty
 VALUES (
 'Treehouse of Horror',
 '../images/simpsons.jpeg',
-'medium'
+'hard'
 );
 
 
@@ -166,6 +166,146 @@ VALUES (
 967,
 739,
 'El Barto',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+454,
+419,
+485,
+493,
+940,
+719,
+'Homer',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+619,
+43,
+644,
+78,
+940,
+719,
+'Mr.Burns',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+338,
+419,
+374,
+487,
+940,
+719,
+'Apu',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+414,
+397,
+442,
+436,
+940,
+719,
+'Milhouse',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+784,
+195,
+825,
+275,
+940,
+719,
+'Moe',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+569,
+194,
+609,
+253,
+940,
+719,
+'Comic Book Guy',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+831,
+561,
+856,
+602,
+940,
+716,
+'Lisa',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+107,
+261,
+156,
+320,
+940,
+719,
+'Mayor Quimby',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+164,
+297,
+203,
+345,
+940,
+719,
+'Grandpa Simpson',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+512,
+343,
+543,
+420,
+940,
+719,
+'Marge',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+644,
+296,
+667,
+330,
+940,
+719,
+'Maggie',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+693,
+157,
+712,
+180,
+940,
+719,
+'Smithers',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+305,
+234,
+341,
+271,
+940,
+719,
+'Bee Man',
+(SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
+),
+(
+80,
+485,
+156,
+561,
+940,
+719,
+'Chief Wiggum',
 (SELECT image_id FROM images WHERE image_name='Treehouse of Horror')
 );
 
