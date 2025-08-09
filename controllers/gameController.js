@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator')
 
-const { getImages, returnImagePath, getAllImagesLeaderboard, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems, updatePlayerFoundItem, returnPlayerItemsNotFound, endGameAndReturnResults, updatePlayerName, returnGameLeaderboard } = require('../db/queries.js');
+const { getImages, returnImagePath, getAllImagesLeaderboard, createPlayerInLeaderboard, getItemCoords, getWaldoItemsList, createPlayerItems, findPlayerItems, updatePlayerFoundItem, returnPlayerItemsNotFound, endGameAndReturnResults, updatePlayerName, returnGameLeaderboard, updatePlayerTimeToNowIfNotGameEnd, checkIfGameEnd, getEndGameResults } = require('../db/queries.js');
 const { validatePlayerName } = require('../validators/gameEndValidator.js');
 
 const getImagesList = async (req, res) => {
@@ -137,6 +137,22 @@ const checkIfPlayerMadeTopTen = async (req, res) => {
 
 }
 
+const restartGameIfNotEnd = async (req, res) => {
+  await updatePlayerTimeToNowIfNotGameEnd(req.params.playerId);
+  res.end();
+}
+
+const checkIfGameWonReadOnly = async (req, res) => {
+  let endGameResults = [];
+  const isGameEnded = await checkIfGameEnd(req.params.playerId);
+  if(isGameEnded) {
+    endGameResults = await getEndGameResults(req.params.playerId);
+  }
+  res.json({
+    endGameResults,
+    allItemsFound: isGameEnded,
+  });
+}
 
 module.exports = {
   getImagesList,
@@ -151,4 +167,6 @@ module.exports = {
   checkIfAllItemsFound,
   submitPlayerName,
   checkIfPlayerMadeTopTen,
+  restartGameIfNotEnd,
+  checkIfGameWonReadOnly,
 }

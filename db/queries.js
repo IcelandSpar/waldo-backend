@@ -74,6 +74,32 @@ async function updatePlayerName(playerId, playerName) {
   return rows;
 }
 
+async function checkIfGameEnd(playerId) {
+  const { rows } = await pool.query("SELECT * FROM leaderboard WHERE end_time IS NOT NULL AND player_id=$1", [playerId]);
+  console.log( 'isGameEnd', rows.length > 0);
+  return rows.length > 0;
+}
+
+async function getEndGameResults(playerId) {
+  const { rows } = await pool.query("SELECT * FROM leaderboard WHERE player_id=$1", [playerId]);
+  return rows;
+}
+
+async function updatePlayerTimeToNowIfNotGameEnd(playerId) {
+  const isGameEnded = await checkIfGameEnd(playerId);
+  if(isGameEnded == false) {
+  await pool.query("UPDATE leaderboard set start_time=NOW() WHERE player_id=$1", [playerId]);
+  await setAllPlayerItemsToNotFound(playerId);
+  }
+}
+
+async function setAllPlayerItemsToNotFound(playerId) {
+  await pool.query(`UPDATE player_items
+SET is_found = false 
+WHERE player_id=$1;
+`, [playerId]);
+}
+
 module.exports = {
   getImages,
   returnImagePath,
@@ -88,4 +114,7 @@ module.exports = {
   returnPlayerItemsNotFound,
   endGameAndReturnResults,
   updatePlayerName,
+  updatePlayerTimeToNowIfNotGameEnd,
+  checkIfGameEnd,
+  getEndGameResults,
 };
